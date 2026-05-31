@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skillGroups = [
+  {
+    category: 'Cloud & Identity',
+    skills: ['Microsoft Entra ID', 'Conditional Access', 'PIM', 'Azure AD B2B/B2C', 'M365 Admin Center', 'Defender for Identity'],
+  },
+  {
+    category: 'Infrastructure',
+    skills: ['WatchGuard NGFW & EDR', 'UniFi Wireless', 'Hyper-V', 'VLANs & 802.1Q', 'VPN (Site-to-Site & Remote)', 'DNS & DHCP'],
+  },
+  {
+    category: 'Security',
+    skills: ['Zero Trust Architecture', 'CIS Benchmarks', 'Email Security / Anti-Phishing', 'SpamTitan', 'Endpoint Protection', 'SC-300 (in progress)'],
+  },
+  {
+    category: 'Home Lab & Tooling',
+    skills: ['Synology DSM', 'Docker & Compose', 'Jellyfin / VAAPI', 'Proxmox', 'Network Monitoring', 'Media Automation'],
+  },
+];
+
+const certifications = [
+  { name: 'MS-500: Microsoft 365 Security Administration', status: 'earned'   },
+  { name: 'AZ-104: Microsoft Azure Administrator',         status: 'earned'   },
+  { name: 'CompTIA Network+',                              status: 'earned'   },
+  { name: 'CompTIA A+',                                    status: 'earned'   },
+  { name: 'SC-300: Identity & Access Administrator',       status: 'pursuing' },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="IT Infrastructure Engineer transitioning into cybersecurity — specializing in Microsoft Azure, M365, Zero Trust, and identity governance."
+>
+  <div class="container mx-auto py-16 max-w-4xl">
+
+    <!-- ─── Header ──────────────────────────────────────────── -->
+    <div class="mb-16">
+      <p class="font-mono text-site-blue text-sm mb-4">~/about</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-site-text mb-4">Miguel Chavez</h1>
+      <p class="font-mono text-site-muted text-base md:text-lg">
+        IT Infrastructure Engineer <span class="text-site-amber">→</span> Cybersecurity
+      </p>
+    </div>
+
+    <!-- ─── Bio ─────────────────────────────────────────────── -->
+    <section class="mb-16 space-y-4 text-site-muted leading-relaxed max-w-2xl">
+      <p>
+        Senior IT Systems Engineer with 8+ years of hands-on experience designing, deploying, and
+        securing Microsoft 365 and Azure cloud environments — primarily in an MSP setting supporting
+        multiple client organizations across the Cayman Islands.
+      </p>
+      <p>
+        Day-to-day, that means WatchGuard next-generation firewall and EDR deployments, M365 tenant
+        hardening against Secure Score benchmarks, email security with SpamTitan, end-to-end email
+        migrations, and site-to-site VPN infrastructure. The MS-500 and AZ-104 are the certifications
+        that have mattered most in that work.
+      </p>
+      <p>
+        My current focus is cybersecurity — specifically Zero Trust architecture and identity governance.
+        I'm pursuing the SC-300 and applying those concepts in a personal Azure lab where I can stress-test
+        Conditional Access policies and PIM workflows without impacting production environments.
+      </p>
+      <p>
+        Outside of work: Synology NAS home lab, Docker, 10GbE networking, and media automation. It's where
+        infrastructure ideas get tested before they're trusted.
+      </p>
+    </section>
+
+    <!-- ─── Skills ──────────────────────────────────────────── -->
+    <section class="mb-16">
+      <h2 class="text-xl font-bold text-site-text mb-8">Technical Skills</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {skillGroups.map(({ category, skills }) => (
+          <div>
+            <h3 class="text-xs font-mono text-site-muted uppercase tracking-widest mb-4">{category}</h3>
+            <div class="flex flex-wrap gap-2">
+              {skills.map(skill => (
+                <span class="text-sm px-3 py-1 rounded bg-site-surface border border-site-edge text-site-text">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ─── Certifications ───────────────────────────────────── -->
+    <section class="mb-16">
+      <h2 class="text-xl font-bold text-site-text mb-8">Certifications</h2>
+      <div class="flex flex-col gap-3 max-w-xl">
+        {certifications.map(({ name, status }) => (
+          <div class="flex items-center justify-between bg-site-surface border border-site-edge rounded px-5 py-4 gap-4">
+            <span class="text-sm text-site-text">{name}</span>
+            <span class={`shrink-0 text-xs font-mono px-2 py-0.5 rounded border ${
+              status === 'earned'
+                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                : 'bg-site-amber/10 text-site-amber border-site-amber/20'
+            }`}>
+              {status === 'earned' ? 'Earned' : 'In Progress'}
+            </span>
+          </div>
+        ))}
+      </div>
+      <p class="text-xs text-site-muted mt-4">
+        Also holds: MCSA Windows 8, MCITP Windows 7, Windows Server 2012 R2, Ruckus WiSE, Apple Certified Associate, 25+ Dell certifications.
+      </p>
+    </section>
+
+    <!-- ─── Education ────────────────────────────────────────── -->
+    <section>
+      <h2 class="text-xl font-bold text-site-text mb-8">Education</h2>
+      <div class="bg-site-surface border border-site-edge rounded px-5 py-4 max-w-xl">
+        <p class="text-sm font-medium text-site-text">B.S. Computer Science</p>
+        <p class="text-sm text-site-muted mt-0.5">University of the People · In Progress</p>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

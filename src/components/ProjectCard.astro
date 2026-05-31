@@ -1,0 +1,44 @@
+---
+interface Props {
+  title:       string;
+  description: string;
+  tags:        string[];
+  status?:     'Active' | 'In Progress' | 'Archived';
+  link?:       string;
+}
+
+const { title, description, tags, status = 'Active', link } = Astro.props;
+
+const statusStyles: Record<string, string> = {
+  'Active':      'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  'In Progress': 'bg-site-amber/10 text-site-amber border-site-amber/20',
+  'Archived':    'bg-site-muted/10 text-site-muted border-site-edge',
+};
+---
+
+<div class="bg-site-surface border border-site-edge rounded p-6 flex flex-col gap-4 hover:border-site-blue/50 transition-colors group">
+  <div class="flex items-start justify-between gap-3">
+    <h3 class="text-base font-semibold text-site-text leading-snug group-hover:text-site-blue transition-colors">
+      {title}
+    </h3>
+    <span class={`shrink-0 text-xs font-mono px-2 py-0.5 rounded border ${statusStyles[status]}`}>
+      {status}
+    </span>
+  </div>
+
+  <p class="text-site-muted text-sm leading-relaxed flex-1">{description}</p>
+
+  <div class="flex flex-wrap gap-2">
+    {tags.map(tag => (
+      <span class="text-xs font-mono px-2 py-0.5 rounded bg-site-bg text-site-muted border border-site-edge">
+        {tag}
+      </span>
+    ))}
+  </div>
+
+  {link && (
+    <a href={link} class="text-xs text-site-blue hover:text-site-amber transition-colors font-medium mt-auto pt-1">
+      View Project →
+    </a>
+  )}
+</div>

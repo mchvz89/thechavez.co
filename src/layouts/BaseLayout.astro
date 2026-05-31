@@ -1,0 +1,53 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title:        string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Building secure systems. Documenting everything.',
+} = Astro.props;
+
+const siteTitle   = title === 'Home' ? 'thechavez.co' : `${title} | thechavez.co`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <title>{siteTitle}</title>
+</head>
+<body class="bg-site-bg text-site-text font-sans min-h-screen flex flex-col antialiased">
+  <Header />
+  <main class="flex-1">
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>
+
+<style is:global>
+  html { scroll-behavior: smooth; }
+
+  ::-webkit-scrollbar       { width: 5px; }
+  ::-webkit-scrollbar-track { background: #111318; }
+  ::-webkit-scrollbar-thumb { background: #2a3040; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #0078d4; }
+
+  ::selection { background: rgba(0, 120, 212, 0.25); color: #e2e8f0; }
+</style>

@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const services = [
+  {
+    title: 'Azure & Microsoft 365',
+    description:
+      'Tenant administration, identity governance, Conditional Access, and compliance configuration across Microsoft cloud services.',
+    d: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
+  },
+  {
+    title: 'Network Infrastructure',
+    description:
+      'Enterprise routing and switching, firewall management, SD-WAN, and network segmentation with a focus on resilience and performance.',
+    d: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9',
+  },
+  {
+    title: 'Cybersecurity',
+    description:
+      'Zero Trust architecture, identity-centric security, threat detection frameworks, and CIS benchmark implementation.',
+    d: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  },
+  {
+    title: 'Home Lab & Automation',
+    description:
+      'Self-hosted infrastructure, Docker container orchestration, media automation, and 10GbE network optimization on Synology NAS.',
+    d: 'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01',
+  },
+];
+---
+
+<BaseLayout title="Home">
+
+  <!-- ─── Hero ──────────────────────────────────────────────── -->
+  <section class="relative min-h-[92vh] flex items-center overflow-hidden">
+    <div class="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div
+      class="absolute inset-0 pointer-events-none"
+      style="background: linear-gradient(to bottom, transparent 50%, #111318 100%)"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative container mx-auto py-24">
+      <p class="font-mono text-site-blue text-sm mb-6 tracking-wider">~/thechavez.co</p>
+
+      <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-none tracking-tight mb-6">
+        <span class="text-site-text block">Miguel</span>
+        <span class="text-site-blue block">Chavez</span>
+      </h1>
+
+      <p class="font-mono text-site-muted text-base md:text-lg mb-1">
+        IT Infrastructure Engineer <span class="text-site-amber font-bold">→</span> Cybersecurity
+      </p>
+      <p class="text-site-muted text-sm md:text-base mb-8">Azure · M365 · Zero Trust</p>
+
+      <blockquote class="text-xl md:text-2xl text-site-text mb-10 pl-5 border-l-2 border-site-amber max-w-xl">
+        "Building secure systems. Documenting everything."
+      </blockquote>
+
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="/projects"
+          class="px-6 py-3 bg-site-blue text-white font-medium text-sm hover:bg-blue-600 transition-colors rounded-sm"
+        >
+          View Projects
+        </a>
+        <a
+          href="/blog"
+          class="px-6 py-3 border border-site-edge text-site-muted font-medium text-sm hover:border-site-blue hover:text-site-blue transition-colors rounded-sm"
+        >
+          Read the Blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── What I Build ─────────────────────────────────────── -->
+  <section class="py-24 border-t border-site-edge">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-bold text-site-text mb-2">What I Build</h2>
+      <p class="text-site-muted text-sm mb-10">Focus areas across cloud, infrastructure, and security.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {services.map(({ title, description, d }) => (
+          <div class="bg-site-surface border border-site-edge rounded p-6 hover:border-site-blue/40 transition-colors">
+            <div class="w-10 h-10 rounded flex items-center justify-center bg-site-blue/10 mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-site-blue"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d={d} />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-site-text text-sm mb-2">{title}</h3>
+            <p class="text-site-muted text-sm leading-relaxed">{description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Latest Posts ─────────────────────────────────────── -->
+  {posts.length > 0 && (
+    <section class="py-24 border-t border-site-edge">
+      <div class="container mx-auto">
+        <div class="flex items-end justify-between mb-10">
+          <div>
+            <h2 class="text-2xl font-bold text-site-text mb-1">Latest Posts</h2>
+            <p class="text-site-muted text-sm">Notes from the field.</p>
+          </div>
+          <a
+            href="/blog"
+            class="hidden sm:block text-sm text-site-blue hover:text-site-amber transition-colors font-medium"
+          >
+            All posts →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {posts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              slug={post.slug}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+
+        <div class="mt-6 sm:hidden">
+          <a href="/blog" class="text-sm text-site-blue hover:text-site-amber transition-colors font-medium">
+            All posts →
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ─── Currently ────────────────────────────────────────── -->
+  <section class="py-12 border-t border-site-edge">
+    <div class="container mx-auto">
+      <p class="text-xs font-mono text-site-muted uppercase tracking-widest mb-5">Currently</p>
+      <div class="flex flex-wrap gap-3">
+        <div class="flex items-center gap-3 bg-site-surface border border-site-edge rounded px-4 py-3">
+          <span class="w-2 h-2 rounded-full bg-site-amber shrink-0" aria-hidden="true"></span>
+          <span class="text-sm text-site-text">Studying for SC-300 — Microsoft Identity &amp; Access Administrator</span>
+        </div>
+        <div class="flex items-center gap-3 bg-site-surface border border-site-edge rounded px-4 py-3">
+          <span class="w-2 h-2 rounded-full bg-site-blue shrink-0" aria-hidden="true"></span>
+          <span class="text-sm text-site-text">B.S. Computer Science · University of the People</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .dot-grid {
+    background-image: radial-gradient(circle at 1px 1px, #2a3040 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+</style>

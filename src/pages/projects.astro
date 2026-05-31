@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'Azure Zero Trust Lab',
+    description:
+      'Personal Azure tenant configured end-to-end with Zero Trust principles: Named Locations, risk-based Conditional Access policies, PIM just-in-time activation workflows, and Defender for Cloud security posture baseline.',
+    tags: ['Azure', 'Entra ID', 'Conditional Access', 'PIM', 'Defender for Cloud'],
+    status: 'Active' as const,
+  },
+  {
+    title: 'Synology Home Lab',
+    description:
+      'Fully automated media and infrastructure stack on Synology DS923+. Docker-compose managed containers, hardware-accelerated HEVC transcoding via VAAPI, 10GbE with jumbo frames, and Git-versioned configuration.',
+    tags: ['Synology', 'Docker', 'Jellyfin', '10GbE', 'VAAPI', 'Networking'],
+    status: 'Active' as const,
+  },
+  {
+    title: 'M365 Security Hardening Baseline',
+    description:
+      'Implementation of the CIS Microsoft 365 Foundations Benchmark across a tenant. Covers Secure Score baselines, legacy auth blocking, MFA enforcement, mailbox auditing, and SharePoint data governance policies.',
+    tags: ['M365', 'CIS Benchmark', 'Security', 'Compliance', 'PowerShell'],
+    status: 'In Progress' as const,
+  },
+];
+---
+
+<BaseLayout
+  title="Projects"
+  description="Infrastructure, security, and home lab projects by Miguel Chavez."
+>
+  <div class="container mx-auto py-16 max-w-5xl">
+
+    <div class="mb-14">
+      <p class="font-mono text-site-blue text-sm mb-4">~/projects</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-site-text mb-4">Projects</h1>
+      <p class="text-site-muted max-w-xl leading-relaxed">
+        Infrastructure builds, security implementations, and home lab experiments.
+        All production or near-production configurations.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {projects.map(project => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

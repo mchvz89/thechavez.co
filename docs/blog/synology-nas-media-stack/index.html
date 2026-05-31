@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="How I set up a fully automated media pipeline on Synology NAS with hardware-accelerated transcoding, Docker container orchestration, and 10GbE network optimization."><link rel="canonical" href="https://thechavez.co/blog/synology-nas-media-stack/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><title>Building a Media Automation Stack on Synology NAS | thechavez.co</title><link rel="stylesheet" href="/_astro/about.Bv-9z7TK.css">
+<style>html{scroll-behavior:smooth}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#111318}::-webkit-scrollbar-thumb{background:#2a3040;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:#0078d4}::-moz-selection{background:#0078d440;color:#e2e8f0}::selection{background:#0078d440;color:#e2e8f0}
+</style><script type="module">const e=document.getElementById("nav-toggle"),t=document.getElementById("mobile-nav");e?.addEventListener("click",()=>{t?.classList.toggle("hidden")});
+</script></head> <body class="bg-site-bg text-site-text font-sans min-h-screen flex flex-col antialiased"> <header class="sticky top-0 z-50 bg-site-bg/90 backdrop-blur border-b border-site-edge"> <nav class="container mx-auto h-16 flex items-center justify-between"> <a href="/" class="font-mono text-site-blue font-semibold tracking-tight hover:text-site-text transition-colors">
+~/thechavez.co
+</a> <!-- Desktop nav --> <ul class="hidden md:flex items-center gap-8 list-none m-0 p-0"> <li> <a href="/about" class="text-sm font-medium transition-colors hover:text-site-text text-site-muted"> About </a> </li><li> <a href="/projects" class="text-sm font-medium transition-colors hover:text-site-text text-site-muted"> Projects </a> </li><li> <a href="/blog" class="text-sm font-medium transition-colors hover:text-site-text text-site-text"> Blog </a> </li><li> <a href="/contact" class="text-sm font-medium transition-colors hover:text-site-text text-site-muted"> Contact </a> </li> </ul> <!-- Mobile toggle --> <button id="nav-toggle" aria-label="Toggle navigation" class="md:hidden p-1 text-site-muted hover:text-site-text transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </nav> <!-- Mobile nav --> <div id="mobile-nav" class="hidden border-t border-site-edge md:hidden"> <ul class="container mx-auto py-4 flex flex-col gap-3 list-none m-0 p-0 px-6"> <li> <a href="/about" class="text-sm font-medium block py-1 transition-colors hover:text-site-text text-site-muted"> About </a> </li><li> <a href="/projects" class="text-sm font-medium block py-1 transition-colors hover:text-site-text text-site-muted"> Projects </a> </li><li> <a href="/blog" class="text-sm font-medium block py-1 transition-colors hover:text-site-text text-site-text"> Blog </a> </li><li> <a href="/contact" class="text-sm font-medium block py-1 transition-colors hover:text-site-text text-site-muted"> Contact </a> </li> </ul> </div> </header>  <main class="flex-1">  <div class="container mx-auto py-16 max-w-3xl"> <a href="/blog" class="inline-flex items-center gap-1 text-sm font-mono text-site-muted hover:text-site-blue transition-colors mb-10">
+← Back to Blog
+</a> <header class="mb-12"> <div class="flex flex-wrap gap-2 mb-5"> <span class="text-xs font-mono px-2 py-0.5 rounded bg-site-blue/10 text-site-blue border border-site-blue/20"> Home Lab </span><span class="text-xs font-mono px-2 py-0.5 rounded bg-site-blue/10 text-site-blue border border-site-blue/20"> Synology </span><span class="text-xs font-mono px-2 py-0.5 rounded bg-site-blue/10 text-site-blue border border-site-blue/20"> Docker </span><span class="text-xs font-mono px-2 py-0.5 rounded bg-site-blue/10 text-site-blue border border-site-blue/20"> Networking </span> </div> <h1 class="text-3xl md:text-4xl font-bold text-site-text leading-tight mb-4">Building a Media Automation Stack on Synology NAS</h1> <p class="text-site-muted text-lg leading-relaxed mb-3">How I set up a fully automated media pipeline on Synology NAS with hardware-accelerated transcoding, Docker container orchestration, and 10GbE network optimization.</p> <time class="text-xs text-site-muted font-mono">April 21, 2026</time> </header> <div class="prose prose-lg max-w-none">  <p>My Synology NAS started as a simple network file share. Over two years it became the backbone of a self-hosted media and automation stack — and a surprisingly practical lab environment for infrastructure concepts that translate directly to production work.</p>
+<h2 id="hardware">Hardware</h2>
+<p>Running a Synology DS923+ with:</p>
+<ul>
+<li>4× 6TB WD Red Plus in SHR (RAID 5 equivalent)</li>
+<li>1× 500GB NVMe SSD as a read/write cache pool</li>
+<li>Synology E10G22-T1-Mini 10GbE add-in card</li>
+</ul>
+<p>The 10GbE NIC is the most impactful single upgrade. Copying a 50GB MKV file over 1GbE takes several minutes. Over 10GbE with the NVMe cache, it saturates the link and finishes in under a minute. Everything else in the stack benefits downstream.</p>
+<h2 id="container-architecture">Container Architecture</h2>
+<p>Everything service-related runs in Docker via Synology Container Manager. Rather than configuring containers through the UI, I manage everything with a <code>docker-compose.yml</code> checked into a private Git repository. Reproducibility matters — if DSM gets upgraded, the NAS gets replaced, or I want to roll back a configuration change, the state is version-controlled.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Container</th><th>Role</th></tr></thead><tbody><tr><td>Sonarr</td><td>TV series monitoring and automation</td></tr><tr><td>Radarr</td><td>Movie monitoring and automation</td></tr><tr><td>Prowlarr</td><td>Indexer aggregation for both</td></tr><tr><td>Jellyfin</td><td>Media server with hardware transcode</td></tr><tr><td>Watchtower</td><td>Automatic container image updates</td></tr><tr><td>Portainer</td><td>Container management and monitoring</td></tr></tbody></table>
+<p>The automation pipeline: Sonarr/Radarr monitor for new releases → Prowlarr finds the source → download client fetches it → content lands in the NAS library → Jellyfin picks it up automatically. End-to-end with no manual steps.</p>
+<h2 id="hardware-accelerated-transcoding">Hardware-Accelerated Transcoding</h2>
+<p>The DS923+ uses an AMD Ryzen R1600 processor with integrated HEVC decode support. Jellyfin can offload transcode work to the GPU via VAAPI, avoiding software transcoding — which on a NAS CPU would be both slow and loud.</p>
+<p>In Jellyfin’s playback settings:</p>
+<ol>
+<li>Set hardware acceleration to <strong>Video Acceleration API (VAAPI)</strong></li>
+<li>Pass the <code>/dev/dri</code> device into the container</li>
+<li>Enable HEVC decode and H.264 encode/decode</li>
+</ol>
+<p>The relevant <code>docker-compose</code> device passthrough:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">devices</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">/dev/dri:/dev/dri</span></span>
+<span class="line"></span></code></pre>
+<p>With VAAPI working, a single 4K HEVC stream transcodes without noticeable CPU impact. Multiple concurrent streams that previously caused buffering now play cleanly.</p>
+<h2 id="network-tuning">Network Tuning</h2>
+<p>With 10GbE as the backbone, a few additional tuning steps are worth the time.</p>
+<p><strong>Jumbo frames (MTU 9000):</strong> Reduces per-packet overhead for large sequential transfers. Set on the NAS interface in DSM under <em>Control Panel → Network Interface → Edit → MTU</em>, and match the setting on the connected switch port. Both sides must match — mismatched MTU silently degrades performance.</p>
+<p><strong>Link aggregation (LACP 802.3ad):</strong> If 10GbE isn’t available, bonding two 1GbE ports gives 2Gbps aggregate throughput. Requires a managed switch with LACP support. More useful for NAS-to-NAS backup traffic than client streaming.</p>
+<p><strong>QoS prioritization:</strong> DSM’s built-in QoS can weight media streaming traffic over backup tasks. Without it, a Hyper Backup job saturating the uplink while someone is watching a stream causes buffering. With it, streaming gets priority and backups throttle themselves.</p>
+<h2 id="what-ive-taken-from-this">What I’ve Taken From This</h2>
+<p><strong>Version-control your infrastructure configs.</strong> The <code>docker-compose.yml</code> in Git means rebuilding the entire stack after a NAS failure is a <code>docker compose up</code> away, not a half-day of UI configuration from memory.</p>
+<p><strong>Observe everything.</strong> Prowlarr going down silently breaks the entire automation pipeline. Portainer dashboards + Synology’s health notifications give early warning before silent failures become missed content or a full disk.</p>
+<p><strong>Hardware acceleration is worth the complexity.</strong> Software-transcoding a single 4K stream can pin the NAS CPU and make everything else sluggish. Proper VAAPI configuration offloads that completely.</p>
+<p>The stack gives me hands-on reps with container orchestration, volume management, network performance tuning, and infrastructure automation — all of which map directly to production Azure and M365 environments.</p>  </div> </div>  </main> <footer class="border-t border-site-edge mt-auto py-10"> <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4"> <p class="text-site-muted text-sm">© 2026 Miguel Chavez</p> <p class="text-site-muted text-xs text-center hidden md:block">
+Building secure systems. Documenting everything.
+</p> <div class="flex items-center gap-6"> <a href="#" aria-label="GitHub" class="text-site-muted hover:text-site-blue text-sm transition-colors">
+GitHub
+</a> <a href="#" aria-label="LinkedIn" class="text-site-muted hover:text-site-blue text-sm transition-colors">
+LinkedIn
+</a> </div> </div> </footer> </body></html>

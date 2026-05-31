@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Blog"
+  description="Technical writing on Azure, Microsoft 365, cybersecurity, and infrastructure by Miguel Chavez."
+>
+  <div class="container mx-auto py-16 max-w-4xl">
+
+    <div class="mb-14">
+      <p class="font-mono text-site-blue text-sm mb-4">~/blog</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-site-text mb-4">Blog</h1>
+      <p class="text-site-muted">
+        Notes on Azure, Microsoft 365, cybersecurity, and the occasional home lab deep-dive.
+      </p>
+    </div>
+
+    {posts.length === 0 ? (
+      <p class="text-site-muted text-sm">No posts yet — check back soon.</p>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {posts.map(post => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            slug={post.slug}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    )}
+
+  </div>
+</BaseLayout>
