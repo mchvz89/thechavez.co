@@ -21,11 +21,12 @@ const skillGroups = [
 ];
 
 const certifications = [
-  { name: 'MS-500: Microsoft 365 Security Administration', status: 'earned'   },
-  { name: 'AZ-104: Microsoft Azure Administrator',         status: 'earned'   },
-  { name: 'CompTIA Network+',                              status: 'earned'   },
-  { name: 'CompTIA A+',                                    status: 'earned'   },
-  { name: 'SC-300: Identity & Access Administrator',       status: 'pursuing' },
+  { name: 'SC-300: Identity & Access Administrator',                  status: 'pursuing' },
+  { name: 'AZ-104: Microsoft Azure Administrator',                    status: 'earned'   },
+  { name: 'SC-900: Security, Compliance & Identity Fundamentals',     status: 'earned'   },
+  { name: 'MS-500: Microsoft 365 Security Administration',            status: 'earned'   },
+  { name: 'CompTIA Network+',                                         status: 'earned'   },
+  { name: 'CompTIA A+',                                               status: 'earned'   },
 ];
 ---
 
@@ -44,32 +45,28 @@ const certifications = [
       </p>
     </div>
 
-    <!-- ─── Hook ─────────────────────────────────────────────── -->
-    <section class="mb-12 max-w-2xl">
-      <p class="text-xl md:text-2xl text-site-text font-medium leading-relaxed">
-        I've spent 8 years keeping other people's infrastructure running.<br class="hidden sm:block" />
-        Now I'm focused on making sure it can't be broken into.
-      </p>
-    </section>
-
     <!-- ─── Bio ─────────────────────────────────────────────── -->
     <section class="mb-16 space-y-4 text-site-muted leading-relaxed max-w-2xl">
+      <p class="text-site-text">
+        I've spent 8 years keeping other people's infrastructure running.
+        Now I'm focused on making sure it can't be broken into.
+      </p>
       <p>
-        Most of that time was spent in the Cayman Islands — one of the world's leading offshore financial
-        centers — managing IT infrastructure for organizations across financial services, legal, and
+        All of that time was spent in the Cayman Islands, one of the world's leading offshore financial
+        centers, managing IT infrastructure for organizations across financial services, legal, and
         professional sectors. Working in an MSP meant owning the full stack for multiple clients
         simultaneously, with operations and teams spanning the United States, the Philippines, and
         across Asia. High-stakes environments, tight compliance expectations, and no redundancy of teams
         to fall back on.
       </p>
       <p>
-        Day-to-day, that meant WatchGuard NGFW and EDR deployments, M365 tenant hardening against Secure
-        Score benchmarks, email threat protection with SpamTitan, end-to-end migrations from legacy
-        systems to Microsoft 365, and VPN infrastructure for distributed teams. The MS-500 and AZ-104
-        are the certifications that have mattered most in that work.
+        In practice, that meant WatchGuard NGFW and EDR deployments, M365 tenant hardening against Secure
+        Score benchmarks, email threat protection with SpamTitan, complete migrations from legacy
+        systems to Microsoft 365, and VPN infrastructure for distributed teams. The MS-500, AZ-104,
+        and SC-900 are the certifications that reflect that work.
       </p>
       <p>
-        What drew me to this field — and keeps me here — is the puzzle. Every network is different,
+        What drew me to this field, and keeps me here, is the puzzle. Every network is different,
         every client has a unique risk profile, and the threat landscape shifts faster than the tools do.
         That friction is what I find interesting.
       </p>
@@ -79,22 +76,23 @@ const certifications = [
       </p>
     </section>
 
-    <!-- ─── Skills ──────────────────────────────────────────── -->
+    <!-- ─── What I'm working toward ────────────────────────── -->
     <section class="mb-16">
-      <h2 class="text-xl font-bold text-site-text mb-8">Technical Skills</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {skillGroups.map(({ category, skills }) => (
-          <div>
-            <h3 class="text-xs font-mono text-site-muted uppercase tracking-widest mb-4">{category}</h3>
-            <div class="flex flex-wrap gap-2">
-              {skills.map(skill => (
-                <span class="text-sm px-3 py-1 rounded bg-site-surface border border-site-edge text-site-text">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
+      <h2 class="text-xl font-bold text-site-text mb-6">What I'm Working Toward</h2>
+      <div class="max-w-2xl border-l-2 border-site-amber pl-6 space-y-4">
+        <p class="text-site-muted leading-relaxed">
+          I'm actively pursuing roles in cybersecurity, specifically in identity, access management,
+          and Zero Trust architecture. The SC-300 is the current certification milestone, but the
+          real goal is moving from "the person who secures the infrastructure" to "the person who
+          designs the security posture from the ground up."
+        </p>
+        <p class="text-site-muted leading-relaxed">
+          If you're building something in that space, or just want to compare notes on Conditional
+          Access edge cases, I'd love to talk.
+        </p>
+        <a href="/contact" class="inline-flex items-center gap-1 text-sm text-site-blue hover:text-site-amber transition-colors font-medium pt-1">
+          Get in touch →
+        </a>
       </div>
     </section>
 
@@ -120,23 +118,22 @@ const certifications = [
       </p>
     </section>
 
-    <!-- ─── What I'm working toward ────────────────────────── -->
+    <!-- ─── Skills ──────────────────────────────────────────── -->
     <section class="mb-16">
-      <h2 class="text-xl font-bold text-site-text mb-6">What I'm Working Toward</h2>
-      <div class="max-w-2xl border-l-2 border-site-amber pl-6 space-y-4">
-        <p class="text-site-muted leading-relaxed">
-          I'm actively pursuing roles in cybersecurity — specifically in identity, access management,
-          and Zero Trust architecture. The SC-300 is the current certification milestone, but the
-          real goal is moving from "the person who secures the infrastructure" to "the person who
-          designs the security posture from the ground up."
-        </p>
-        <p class="text-site-muted leading-relaxed">
-          If you're building something in that space — or just want to compare notes on Conditional
-          Access edge cases — I'd love to talk.
-        </p>
-        <a href="/contact" class="inline-flex items-center gap-1 text-sm text-site-blue hover:text-site-amber transition-colors font-medium pt-1">
-          Get in touch →
-        </a>
+      <h2 class="text-xl font-bold text-site-text mb-8">Technical Skills</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {skillGroups.map(({ category, skills }) => (
+          <div>
+            <h3 class="text-xs font-mono text-site-muted uppercase tracking-widest mb-4">{category}</h3>
+            <div class="flex flex-wrap gap-2">
+              {skills.map(skill => (
+                <span class="text-sm px-3 py-1 rounded bg-site-surface border border-site-edge text-site-text">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
 
